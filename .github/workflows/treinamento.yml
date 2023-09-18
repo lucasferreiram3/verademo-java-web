@@ -51,6 +51,25 @@ jobs:
           
           export EXTRA_ARGS='--update-advisor --uri-as-name'
           curl -sSL https://download.sourceclear.com/ci.sh | bash -s scan $EXTRA_ARGS
+  
+  Veracode-container_iac_secrets-scan:
+    runs-on: ubuntu-latest
+    name: Verracode Container/IaC/Secrets scan
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: Verracode Container/IaC/Secrets action step
+        uses: veracode/container_iac_secrets_scanning@v1.0.0
+        with:
+          vid: ${{ secrets.VID }}
+          vkey: ${{ secrets.VKEY }}
+          command: "scan" 
+          type: "directory"
+          source: "./"
+          format: "table"
+          debug: false
+          fail_build: false
 
   Veracode_Policy_Scan:
     name: Veracode Policy Scan
