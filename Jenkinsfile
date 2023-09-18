@@ -11,12 +11,14 @@ pipeline {
                 sh 'rm -rf veracode-wrapper.jar'
             }
         }
+        
         stage('Build') { 
             steps {
                 sh 'mvn clean package'
                 sh 'ls -l target/'
             }
         }
+
         stage('Veracode SCA - Agent Scan') { 
             steps {
                 withCredentials([string(credentialsId: 'SRCCLR_API_TOKEN', variable: 'SRCCLR_API_TOKEN')]) {
