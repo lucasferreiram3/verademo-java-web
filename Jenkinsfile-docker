@@ -1,0 +1,22 @@
+pipeline {
+    agent none 
+    environment {
+        caminhoPacote = 'target/verademo.war'
+    }
+
+    stages {
+        stage('Build') { 
+            agent {
+                docker { 
+                    image '3.6.3-openjdk-11'
+                    args '-v $HOME/:target/'
+                }
+            }
+            steps {
+                sh 'mvn clean package'
+                sh 'ls -l'
+            }
+        }
+
+    }
+}
