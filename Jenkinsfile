@@ -40,7 +40,7 @@ pipeline {
                     -filepath ${caminhoPacote} \
                     -createsandbox true \
                     -sandboxname "SANDBOX_1" \
-                    -deleteincompletescan true \
+                    -deleteincompletescan 2 \
                     -version "${BUILD_NUMBER}"
                  """)
                 }
@@ -58,7 +58,7 @@ pipeline {
                     -appname "Java-VeraDemo" \
                     -createprofile false \
                     -filepath ${caminhoPacote} \
-                    -deleteincompletescan true \
+                    -deleteincompletescan 2 \
                     -version "${BUILD_NUMBER}"
                  """)
                 }
