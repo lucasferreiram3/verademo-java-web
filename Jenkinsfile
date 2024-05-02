@@ -3,6 +3,7 @@ pipeline {
     environment {
         caminhoPacote = 'target/verademo.war'
         wrapperVersion = '23.8.12.0'
+        appProfile = 'verademo-java-web'
     }
     stages {
         stage('Clean') { 
@@ -35,7 +36,7 @@ pipeline {
                     -vid "${VID}" \
                     -vkey "${VKEY}" \
                     -action uploadandscan \
-                    -appname "Java-VeraDemo" \
+                    -appname ${appProfile} \
                     -createprofile false \
                     -filepath ${caminhoPacote} \
                     -createsandbox true \
@@ -55,7 +56,7 @@ pipeline {
                     -vid "${VID}" \
                     -vkey "${VKEY}" \
                     -action uploadandscan \
-                    -appname "Java-VeraDemo" \
+                    -appname ${appProfile} \
                     -createprofile false \
                     -filepath ${caminhoPacote} \
                     -deleteincompletescan 2 \
@@ -74,7 +75,7 @@ pipeline {
                     --veracode_api_id "${VID}" \
                     --veracode_api_key "${VKEY}" \
                     --file target/verademo.war \
-                    --project_name "Java-VeraDemo" \
+                    --project_name ${appProfile} \
                     --policy_name "Veracode Recommended High"
                     """)
                 }
