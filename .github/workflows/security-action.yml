@@ -37,7 +37,7 @@ jobs:
           SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
         run: curl -sSL https://download.sourceclear.com/ci.sh | sh -s scan --update-advisor --uri-as-name --ref ${{ github.ref_name }}
 
-veracode-container-iac-secrets-scan:
+  veracode-container-iac-secrets-scan:
     runs-on: ubuntu-latest
     name: Veracode Container/IaC/Secrets scan
     needs: [ build ]
@@ -64,9 +64,9 @@ veracode-container-iac-secrets-scan:
     
     steps:
       - name: Check out main branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: get archive
         uses: actions/download-artifact@v4 
         with:
@@ -93,7 +93,7 @@ veracode-container-iac-secrets-scan:
     
     steps:
       - name: Check out main branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         
       - name: get archive
         uses: actions/download-artifact@v4 
