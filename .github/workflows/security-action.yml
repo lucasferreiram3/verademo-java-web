@@ -40,13 +40,13 @@ jobs:
 veracode-container-iac-secrets-scan:
     runs-on: ubuntu-latest
     name: Veracode Container/IaC/Secrets scan
-
+    needs: [ build ]
     steps:
       - name: checkout
         uses: actions/checkout@v3
 
       - name: Veracode Container/IaC/Secrets action step
-        uses: veracode/container_iac_secrets_scanning@v1.0.1
+        uses: veracode/container_iac_secrets_scanning@v1.0.3
         with:
           vid: '${{ secrets.VERACODE_ID }}'
           vkey: '${{ secrets.VERACODE_KEY }}'
