@@ -24,7 +24,16 @@ pipeline {
                 withCredentials([string(credentialsId: 'AQUA_USER', variable: 'AQUA_USER'), string(credentialsId: 'AQUA_PASSWORD', variable: 'AQUA_PASS'), string(credentialsId: 'AQUA_HOST', variable: 'AQUA_HOST'), string(credentialsId: 'AQUA_SCANNER', variable: 'AQUA_SCANNER')]) {
                     sh 'docker login registry.aquasec.com -u ${AQUA_USER} -p ${AQUA_PASS}'
                     sh 'docker pull registry.aquasec.com/scanner:latest-saas'
-                    sh 'docker run -v /var/run/docker.sock:/var/run/docker.sock registry.aquasec.com/scanner:latest-saas scan -H https://${AQUA_HOST}.cloud.aquasec.com -A ${AQUA_SCANNER} --local verademo:v"${BUILD_NUMBER}"'
+                    sh 'docker run -v /var/run/docker.sock:/var/run/docker.sock registry.aquasec.com/scanner:latest-saas scan -H https://${AQUA_HOST}.cloud.aquasec.com -A ${AQUA_SCANNER} --local verademo:v"${BUILD_NUMBER}" --jsonfile javademo-web-"${BUILD_NUMBER}.json'
+                }
+            }
+        }
+        stage('Aqua Image Scan Policy Compliance') { 
+            steps {
+                withCredentials([string(credentialsId: 'AQUA_USER', variable: 'AQUA_USER'), string(credentialsId: 'AQUA_PASSWORD', variable: 'AQUA_PASS'), string(credentialsId: 'AQUA_HOST', variable: 'AQUA_HOST'), string(credentialsId: 'AQUA_SCANNER', variable: 'AQUA_SCANNER')]) {
+                    sh 'docker login registry.aquasec.com -u ${AQUA_USER} -p ${AQUA_PASS}'
+                    sh 'docker pull registry.aquasec.com/scanner:latest-saas'
+                    sh 'docker run -v /var/run/docker.sock:/var/run/docker.sock registry.aquasec.com/scanner:latest-saas scan -H https://${AQUA_HOST}.cloud.aquasec.com -A ${AQUA_SCANNER} --local verademo:v"${BUILD_NUMBER}" --policies "demo-pipelines"'
                 }
             }
         }
