@@ -6,14 +6,14 @@ pipeline {
         appProfile = 'verademo-java-web'
     }
     stages {
-
         stage('Build MAVEN') { 
             steps {
                 sh 'mvn clean package'
                 sh 'ls -l target/'
             }
         }
-        tage('Build IMMGE') { 
+
+        stage('Build IMMGE') { 
             steps {
                 sh 'dockerbuild -t verademo:"${BUILD_NUMBER}"'
             }
