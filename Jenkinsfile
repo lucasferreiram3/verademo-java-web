@@ -15,7 +15,7 @@ pipeline {
 
         stage('Build IMMGE') { 
             steps {
-                sh 'dockerbuild -t verademo:"${BUILD_NUMBER}"'
+                sh 'docker build -t verademo:"${BUILD_NUMBER}" .'
             }
         }
     }
