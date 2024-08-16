@@ -114,7 +114,7 @@ jobs:
 
   veracode-sast-pipeline-scan:
     runs-on: ubuntu-latest
-    needs: [ build, veracode-sca, veracode-container-iac-secrets-scan, veracode-sast-sandbox-scan, veracode-sast-policy-scan ]
+    needs: [ build, veracode-sca, veracode-container-iac-secrets-scan, veracode-sast-sandbox-scan ]
     name: veracode sast pipeline scan
 
     steps:
