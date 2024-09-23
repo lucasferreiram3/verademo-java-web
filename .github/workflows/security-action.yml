@@ -72,7 +72,7 @@ jobs:
           VKEY: ${{ secrets.VERACODE_KEY }}
         run: |
           curl -o veracode-wrapper.jar https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar
-          java -jar veracode-wrapper.jar -vid $VID -vkey $VKEY -action uploadandscan -appname  ${{ github.repository }} -createprofile true -teams 'Default' -filepath 'verademo.war' -createsandbox true -sandboxname ${{ github.ref }} -deleteincompletescan 2 -version ${{ github.run_id }}
+          java -jar veracode-wrapper.jar -vid $VID -vkey $VKEY -action uploadandscan -appname 'verademo-java-web' -createprofile true -filepath 'verademo.war' -createsandbox true -sandboxname ${{ github.ref }} -deleteincompletescan 2 -version ${{ github.run_id }}
 
   Veracode_PolicyScan:
     runs-on: ubuntu-latest
@@ -88,7 +88,7 @@ jobs:
           VKEY: ${{ secrets.VERACODE_KEY }}
         run: |
           curl -o veracode-wrapper.jar https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar
-          java -jar veracode-wrapper.jar -vid $VID -vkey $VKEY -action uploadandscan -appname  ${{ github.repository }} -createprofile true -teams 'Default' -filepath 'verademo.war' -deleteincompletescan 2 -version ${{ github.run_id }}
+          java -jar veracode-wrapper.jar -vid $VID -vkey $VKEY -action uploadandscan -appname  'verademo-java-web' -createprofile true -filepath 'verademo.war' -deleteincompletescan 2 -version ${{ github.run_id }}
 
   Veracode_PipelineScan:
     runs-on: ubuntu-latest
