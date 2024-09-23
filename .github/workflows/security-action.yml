@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v4 
       with:
-        distribution: 'temurin'
-        java-version: '11'
+        distribution: 'zulu'
+        java-version: '1.8'
     - name: build maven
       run: |
         mvn clean package install
@@ -22,7 +22,7 @@ jobs:
     - name: salvando artefato
       uses: actions/upload-artifact@v4
       with:
-          name: verademo.war
+          name: pacoteVeracode
           path: target/verademo.war
 
   veracode-sca:
