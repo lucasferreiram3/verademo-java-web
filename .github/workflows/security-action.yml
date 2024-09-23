@@ -66,10 +66,43 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: pacoteVeracode
-      - name: Veracode Pipeline Scan
+      - name: Veracode Sandbox Scan
         env:
           VID: ${{ secrets.VERACODE_ID }} # Lembrar de criar as credenciais no Secrets
           VKEY: ${{ secrets.VERACODE_KEY }}
         run: |
           curl -o veracode-wrapper.jar https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar
-          java -jar veracode-wrapper.jar -vid $VID -vkey $VKEY -action uploadandscan -appname  ${{ github.repository }} -createprofile true -filepath verademo.war -createsandbox true -sandboxname ${{ github.ref }} -deleteincompletescan 2 -version ${{ github.run_id }}
+          java -jar veracode-wrapper.jar -vid $VID -vkey $VKEY -action uploadandscan -appname  ${{ github.repository }} -createprofile true -teams 'Default' -filepath 'verademo.war' -createsandbox true -sandboxname ${{ github.ref }} -deleteincompletescan 2 -version ${{ github.run_id }}
+
+  Veracode_PolicyScan:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download Artefato
+        uses: actions/download-artifact@v4
+        with:
+          name: pacoteVeracode
+      - name: Veracode policy Scan
+        env:
+          VID: ${{ secrets.VERACODE_ID }} # Lembrar de criar as credenciais no Secrets
+          VKEY: ${{ secrets.VERACODE_KEY }}
+        run: |
+          curl -o veracode-wrapper.jar https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar
+          java -jar veracode-wrapper.jar -vid $VID -vkey $VKEY -action uploadandscan -appname  ${{ github.repository }} -createprofile true -teams 'Default' -filepath 'verademo.war' -deleteincompletescan 2 -version ${{ github.run_id }}
+
+  Veracode_PipelineScan:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download Artefato
+        uses: actions/download-artifact@v4
+        with:
+          name: pacoteVeracode
+      - name: Veracode Pipeline Scan
+        env:
+          VID: ${{ secrets.VERACODE_ID }} # Lembrar de criar as credenciais no Secrets
+          VKEY: ${{ secrets.VERACODE_KEY }}
+        run: |
+          curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
+          unzip pipeline-scan-LATEST.zip
+          java -jar pipeline-scan.jar -vid $VID -vkey $VKEY -f 'verademo.war' --issue_details true
