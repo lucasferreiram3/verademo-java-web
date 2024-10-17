@@ -100,9 +100,8 @@ jobs:
           name: pacoteVeracode
       - name: Veracode Pipeline Scan
         env:
-          VID: ${{ secrets.VERACODE_ID }} # Lembrar de criar as credenciais no Secrets
-          VKEY: ${{ secrets.VERACODE_KEY }}
+          VERACODE_API_KEY_ID: ${{ secrets.VERACODE_ID }} # Lembrar de criar as credenciais no Secrets
+          VERACODE_API_KEY_SECRET: ${{ secrets.VERACODE_KEY }}
         run: |
-          curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
-          unzip pipeline-scan-LATEST.zip
-          java -jar pipeline-scan.jar -vid $VID -vkey $VKEY -f 'verademo.war' --issue_details true
+          curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+          ./veracode static scan --fail-on-severity "Very High, High"
