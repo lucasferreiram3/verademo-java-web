@@ -104,4 +104,4 @@ jobs:
           VERACODE_API_KEY_SECRET: ${{ secrets.VERACODE_KEY }}
         run: |
           curl -fsS https://tools.veracode.com/veracode-cli/install | sh
-          ./veracode static scan --fail-on-severity "Very High, High"
+          ./veracode static scan 'verademo.war' --fail-on-severity "Very High, High"
