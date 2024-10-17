@@ -104,5 +104,5 @@ jobs:
           VERACODE_API_KEY_SECRET: ${{ secrets.VERACODE_KEY }}
         run: |
           curl -fsS https://tools.veracode.com/veracode-cli/install | sh
-          ./veracode get policy "POV"
-          ./veracode static scan 'verademo.war' --policy-file "POV.json"
+          ./veracode policy get "POV"
+          ./veracode static scan 'verademo.war' --policy-file "POV"
